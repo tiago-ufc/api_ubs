@@ -18,26 +18,21 @@ function check(nome, condicao, detalhe = '') {
 async function req(method, path, body, token) {
   const headers = { 'Content-Type': 'application/json' };
   if (token) headers.Authorization = `Bearer ${token}`;
-
   const res = await fetch(`${BASE}${path}`, {
     method,
     headers,
     body: body ? JSON.stringify(body) : undefined,
   });
-
   const text = await res.text();
   let json;
   try { json = JSON.parse(text); } catch { json = text; }
-
   console.log(`  ${method} ${path}  →  ${res.status}`);
   console.log('  resposta:', JSON.stringify(json, null, 2));
-
   return { status: res.status, body: json };
 }
 
 async function main() {
   const stamp = Date.now();
-
   sep('1) POST /medicos — cadastrar médico');
   const med = await req('POST', '/medicos', {
     nome: 'Dr. House',

@@ -18,11 +18,11 @@ class DatabaseConnection {
     }
 
     this.#pool = new pg.Pool({
-      user: 'postgres',
-      host: 'localhost',
-      database: 'sistema_medico',
-      password: '18052001',
-      port: 5432,
+      user: process.env.DB_USER || 'postgres',
+      host: process.env.DB_HOST || 'localhost',
+      database: process.env.DB_NAME || 'sistema_medico',
+      password: process.env.DB_PASSWORD || '18052001',
+      port: Number(process.env.DB_PORT || 5432),
     });
 
     this.#pool.on('error', (err) => {
@@ -113,7 +113,7 @@ class DatabaseConnection {
         await client.query('COMMIT');
         return;
       } catch (err) {
-        await client.query('ROLLBACK').catch(() => {});
+        await client.query('ROLLBACK').catch(() => { });
         if (tentativa === maxTentativas) throw err;
         await new Promise((r) => setTimeout(r, 1000 * tentativa));
       } finally {
@@ -138,7 +138,7 @@ class DatabaseConnection {
       await client.query('COMMIT');
       return result;
     } catch (e) {
-      await client.query('ROLLBACK').catch(() => {});
+      await client.query('ROLLBACK').catch(() => { });
       throw e;
     } finally {
       client.release();

@@ -18,7 +18,8 @@ export default class PacienteRepository extends BaseRepository {
 
   async buscarPorIdOuCpf(valor) {
     const idNum = Number(valor);
-    if (!Number.isNaN(idNum)) {
+    const idValido = Number.isInteger(idNum) && idNum >= 1 && idNum <= 2147483647;
+    if (idValido) {
       const { rows } = await this.db.query(
         `SELECT * FROM pacientes WHERE id = $1 OR cpf = $2 LIMIT 1`,
         [idNum, String(valor)]

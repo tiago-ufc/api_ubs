@@ -5,8 +5,10 @@
   "main": "src/server.js",
   "type": "module",
   "scripts": {
-     "start": "node --env-file=.env src/server.js",
-      "test": "node --env-file=.env test/http-test.js"
+    "start": "node --env-file=.env src/server.js",
+    "test": "node --env-file=.env test/http-test.js",
+    "test:unit": "node --test test/routes.test.js",
+    "test:http": "node --env-file=.env --test test/http-routes.test.js"
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",

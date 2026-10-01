@@ -1,0 +1,21 @@
+{
+    "name": "23A - Retirada parcial receita KNLCPQ",
+    "request": {
+        "method": "POST",
+        "header": [
+            {
+                "key": "Authorization",
+                "value": "Bearer {{apiToken}}"
+            },
+            {
+                "key": "Content-Type",
+                "value": "application/json"
+            }
+        ],
+        "body": {
+            "mode": "raw",
+            "raw": "{\n  \"codigoRetirada\": \"KNLCPQ\",\n  \"farmaceuticoNome\": \"Farmaceutico Postman\",\n  \"itens\": [\n    {\n      \"receitaItemId\": 26,\n      \"quantidade\": 10\n    }\n  ]}"
+        },
+        "url": "http://localhost:3000/retiradas"
+    }
+}
